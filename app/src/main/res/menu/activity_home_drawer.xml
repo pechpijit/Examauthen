@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/activity"
+            android:icon="@drawable/ic_event_white_24dp"
+            android:title="กิจกรรม" />
+        <item
+            android:id="@+id/news"
+            android:icon="@drawable/ic_assignment_white_24dp"
+            android:title="ข่าวสาร" />
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_account_circle_white_24dp"
+            android:title="โปรไฟล์" />
+        <item
+            android:id="@+id/history"
+            android:icon="@drawable/ic_assignment_white_24dp"
+            android:title="ประวัติการแจ้งเตือน" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/ic_exit_to_app_white_24dp"
+                android:title="ออกจากระบบ" />
+        </menu>
+    </item>
+
+</menu>
