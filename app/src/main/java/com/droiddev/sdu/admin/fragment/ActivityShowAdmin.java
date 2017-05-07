@@ -51,7 +51,6 @@ public class ActivityShowAdmin extends Fragment {
         TextView txtMajor = (TextView) view.findViewById(R.id.txtMajor);
         TextView txtStart = (TextView) view.findViewById(R.id.txtStart);
         TextView txtStop = (TextView) view.findViewById(R.id.txtStop);
-        TextView txtDescription = (TextView) view.findViewById(R.id.txtDescription);
         TextView txtReport = (TextView) view.findViewById(R.id.txtReport);
 
         txtSubjectCode.setText(m.getSubjectCode());
@@ -60,7 +59,6 @@ public class ActivityShowAdmin extends Fragment {
         txtMajor.setText(m.getMajor());
         txtStart.setText(m.getDate()+" "+m.getStart());
         txtStop.setText(m.getDate()+" "+m.getStop());
-        txtDescription.setText(m.getDescription());
         txtReport.setText(m.getReport());
         return view;
     }

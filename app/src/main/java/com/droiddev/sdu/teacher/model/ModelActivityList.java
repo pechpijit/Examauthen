@@ -26,6 +26,9 @@ public class ModelActivityList {
     @SerializedName("stop")
     @Expose
     private String stop;
+    @SerializedName("status")
+    @Expose
+    private Integer status;
 
     public Integer getId() {
         return id;
@@ -83,4 +86,11 @@ public class ModelActivityList {
         this.stop = stop;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }

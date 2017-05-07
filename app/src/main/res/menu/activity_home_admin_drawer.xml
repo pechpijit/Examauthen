@@ -5,18 +5,18 @@
             android:id="@+id/menu1"
             android:icon="@drawable/ic_assignment_white_24dp"
             android:title="กิจกรรมทั้งหมด"/>
-        <item
-            android:id="@+id/menu2"
-            android:icon="@drawable/ic_assignment_white_24dp"
-            android:title="กิจกรรมแบ่งตามคณะทั้งหมด"/>
-        <item
-            android:id="@+id/menu3"
-            android:icon="@drawable/ic_assignment_white_24dp"
-            android:title="กิจกรรมแบ่งตามสาขาทั้งหมด"/>
-        <item
-            android:id="@+id/menu4"
-            android:icon="@drawable/ic_assignment_white_24dp"
-            android:title="กิจกรรมแบ่งตามคณะ/สาขา" />
+        <!--<item-->
+            <!--android:id="@+id/menu2"-->
+            <!--android:icon="@drawable/ic_assignment_white_24dp"-->
+            <!--android:title="กิจกรรมแบ่งตามคณะทั้งหมด"/>-->
+        <!--<item-->
+            <!--android:id="@+id/menu3"-->
+            <!--android:icon="@drawable/ic_assignment_white_24dp"-->
+            <!--android:title="กิจกรรมแบ่งตามสาขาทั้งหมด"/>-->
+        <!--<item-->
+            <!--android:id="@+id/menu4"-->
+            <!--android:icon="@drawable/ic_assignment_white_24dp"-->
+            <!--android:title="กิจกรรมแบ่งตามคณะ/สาขา" />-->
     </group>
 
     <item android:title="Communicate">

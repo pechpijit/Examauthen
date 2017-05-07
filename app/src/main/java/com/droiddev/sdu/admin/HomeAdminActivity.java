@@ -87,28 +87,28 @@ public class HomeAdminActivity extends AppCompatActivity implements NavigationVi
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (fa_ma == 1 || menu2 == 1||menu3 == 1) {
-            if (fa_ma == 1) {
-                new ConnectAPI().AllActivityFaculty2(HomeAdminActivity.this);
-                fa_ma = 0;
-            }
-            if (menu2 == 1) {
-                new ConnectAPI().AllActivityFaculty(HomeAdminActivity.this);
-                menu2 = 0;
-            }
-
-            if (menu3 == 1) {
-                new ConnectAPI().AllActivityMajor(HomeAdminActivity.this);
-                menu3 = 0;
-            }
-
-        } else {
+//        if (fa_ma == 1 || menu2 == 1||menu3 == 1) {
+//            if (fa_ma == 1) {
+//                new ConnectAPI().AllActivityFaculty2(HomeAdminActivity.this);
+//                fa_ma = 0;
+//            }
+//            if (menu2 == 1) {
+//                new ConnectAPI().AllActivityFaculty(HomeAdminActivity.this);
+//                menu2 = 0;
+//            }
+//
+//            if (menu3 == 1) {
+//                new ConnectAPI().AllActivityMajor(HomeAdminActivity.this);
+//                menu3 = 0;
+//            }
+//
+//        } else {
             if (drawer.isDrawerOpen(GravityCompat.START)) {
                 drawer.closeDrawer(GravityCompat.START);
             } else {
                 super.onBackPressed();
             }
-        }
+//        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -117,31 +117,34 @@ public class HomeAdminActivity extends AppCompatActivity implements NavigationVi
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (fa_ma == 1 || menu2 == 1||menu3 == 1) {
-            if (fa_ma == 1) {
-                fa_ma = 0;
-            }
-            if (menu2 == 1) {
-                menu2 = 0;
-            }
-            if (menu3 == 1) {
-                menu3 = 0;
-            }
-        }
+//        if (fa_ma == 1 || menu2 == 1||menu3 == 1) {
+//            if (fa_ma == 1) {
+//                fa_ma = 0;
+//            }
+//            if (menu2 == 1) {
+//                menu2 = 0;
+//            }
+//            if (menu3 == 1) {
+//                menu3 = 0;
+//            }
+//        }
 
         if (id == R.id.menu1) {
             frameLayout.setVisibility(View.VISIBLE);
-            new ConnectAPI().AllActivity(HomeAdminActivity.this);
-        } else if (id == R.id.menu2) {
-            frameLayout.setVisibility(View.VISIBLE);
-            new ConnectAPI().AllActivityFaculty(HomeAdminActivity.this);
-        }else if (id == R.id.menu3) {
-            frameLayout.setVisibility(View.VISIBLE);
-            new ConnectAPI().AllActivityMajor(HomeAdminActivity.this);
-        }else if (id == R.id.menu4) {
-            frameLayout.setVisibility(View.VISIBLE);
-            new ConnectAPI().AllActivityFaculty2(HomeAdminActivity.this);
-        }else if (id == R.id.logout) {
+            new ConnectAPI().AllActivity(HomeAdminActivity.this,ID);
+        }
+//        else if (id == R.id.menu2) {
+//            frameLayout.setVisibility(View.VISIBLE);
+//            new ConnectAPI().AllActivityFaculty(HomeAdminActivity.this);
+//        }else if (id == R.id.menu3) {
+//            frameLayout.setVisibility(View.VISIBLE);
+//            new ConnectAPI().AllActivityMajor(HomeAdminActivity.this);
+//        }else if (id == R.id.menu4) {
+//            frameLayout.setVisibility(View.VISIBLE);
+//            new ConnectAPI().AllActivityFaculty2(HomeAdminActivity.this);
+//        }else
+
+        if (id == R.id.logout) {
             SharedPreferences sp = getSharedPreferences("Preferences_SDU", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sp.edit();
             editor.putBoolean("login", false);

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.droiddev.sdu.R;
@@ -43,6 +44,14 @@ public class AdapterActivityList extends RecyclerView.Adapter<AdapterActivityLis
             Log.d("test", ""+e);
         }
 
+        switch (list.get(i).getStatus()) {
+            case 1:
+                versionViewHolder.img.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                versionViewHolder.img.setVisibility(View.INVISIBLE);
+                break;
+        }
 
     }
 
@@ -53,6 +62,7 @@ public class AdapterActivityList extends RecyclerView.Adapter<AdapterActivityLis
 
     class VersionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtSubject,txtMajor,txtTime;
+        ImageView img;
 
         public VersionViewHolder(View itemView) {
             super(itemView);
@@ -60,6 +70,7 @@ public class AdapterActivityList extends RecyclerView.Adapter<AdapterActivityLis
             txtSubject = (TextView) itemView.findViewById(R.id.txtTitle);
             txtMajor = (TextView) itemView.findViewById(R.id.txtMajor);
             txtTime = (TextView) itemView.findViewById(R.id.txtTime);
+            img = (ImageView) itemView.findViewById(R.id.img);
 
             itemView.setOnClickListener(this);
         }

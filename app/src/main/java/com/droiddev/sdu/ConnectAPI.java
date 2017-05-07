@@ -26,7 +26,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class ConnectAPI {
-    String URL = "http://192.168.1.50/committee/public";
+    String URL = "http://192.168.1.50/examauthen/public";
 
     public void TeacherLogin(final Activity context, final String username, final String password, final String token) {
         new AsyncTask<Void, Void, String>() {
@@ -481,14 +481,14 @@ public class ConnectAPI {
         }.execute();
     }
 
-    public void AllActivity(final Activity context) {
+    public void AllActivity(final Activity context, final int id) {
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... voids) {
                 OkHttpClient okHttpClient = new OkHttpClient();
 
                 Request.Builder builder = new Request.Builder();
-                Request request = builder.url(URL + "/api/activity/all").build();
+                Request request = builder.url(URL + "/api/activity/user/"+id).build();
                 try {
                     Response response = okHttpClient.newCall(request).execute();
                     if (response.isSuccessful()) {
