@@ -1,7 +1,9 @@
 package com.droiddev.sdu.admin.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -49,8 +51,10 @@ public class BracodeBtnFragment extends Fragment {
         view.findViewById(R.id.btn_sacn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), ""+data, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getActivity(), Camera_QRscan.class).putExtra("id",data));
+                SharedPreferences sp = getActivity().getSharedPreferences("Preferences_SDU", Context.MODE_PRIVATE);
+                int admin = sp.getInt("id", 0);
+                Toast.makeText(getActivity(), ""+admin, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), Camera_QRscan.class).putExtra("id",data).putExtra("admin",admin));
             }
         });
         return view;

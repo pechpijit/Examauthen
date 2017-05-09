@@ -46,6 +46,9 @@ public class ModelActivity {
     @SerializedName("committee")
     @Expose
     private ArrayList<ModelProfile> committee = null;
+    @SerializedName("employee")
+    @Expose
+    private ModelEmployee employee = null;
 
     public Integer getId() {
         return id;
@@ -151,4 +154,11 @@ public class ModelActivity {
         this.committee = committee;
     }
 
+    public ModelEmployee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(ModelEmployee employee) {
+        this.employee = employee;
+    }
 }

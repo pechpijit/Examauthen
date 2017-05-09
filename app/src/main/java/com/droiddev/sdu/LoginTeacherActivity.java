@@ -18,7 +18,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class LoginTeacherActivity extends AppCompatActivity {
-    Button _loginButton;
+    public Button _loginButton;
     TextView _usernameText,_passwordText;
     String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;

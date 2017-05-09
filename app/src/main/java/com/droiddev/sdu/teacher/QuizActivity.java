@@ -20,6 +20,7 @@ import android.view.View;
 
 import com.droiddev.sdu.ConnectAPI;
 import com.droiddev.sdu.R;
+import com.droiddev.sdu.teacher.fragment.EmployeeListFragment;
 import com.droiddev.sdu.teacher.model.ModelActivity;
 import com.droiddev.sdu.teacher.model.ModelProfile;
 import com.droiddev.sdu.teacher.fragment.ActivityShow;
@@ -113,6 +114,7 @@ public class QuizActivity extends AppCompatActivity {
 
         adapter.addFrag(new ActivityShow().newInstance(string), "ข้อมูลกิจกรรม");
         adapter.addFrag(new CommitteeListFragment().newInstance(string,url), "กรรมการคุมสอบ");
+        adapter.addFrag(new EmployeeListFragment().newInstance(string,url), "เจ้าหน้าที่จัดการข้อสอบ");
         viewPager.setAdapter(adapter);
         tabLayout.setVisibility(View.VISIBLE);
     }

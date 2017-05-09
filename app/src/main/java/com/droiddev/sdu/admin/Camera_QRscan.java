@@ -3,8 +3,10 @@ package com.droiddev.sdu.admin;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -28,8 +30,9 @@ public class Camera_QRscan extends AppCompatActivity implements ZXingScannerView
     private ZXingScannerView mScannerView;
     private static final int REQUEST_CAMERA = 0;
     public static final String EXTRA_DATA = "EXTRA_DATA";
-    ProgressDialog progressDialog;
+    public ProgressDialog progressDialog;
     int ID = 0;
+    int admin_id = 0;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -43,8 +46,12 @@ public class Camera_QRscan extends AppCompatActivity implements ZXingScannerView
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_qr_scan);
+
+
+
         Bundle i = getIntent().getExtras();
         ID = i.getInt("id", 0);
+        admin_id = i.getInt("admin");
         Start_QR_Scan();//เปิดกล้อง
     }
 
@@ -98,9 +105,9 @@ public class Camera_QRscan extends AppCompatActivity implements ZXingScannerView
         Log.e("handler", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode)
         Log.e("handler", rawResult.getResultPoints().toString()); // Prints the scan format (qrcode)
 
-        dialog();
+        dialog(rawResult);
 
-        new ConnectAPI().AdminScan(Camera_QRscan.this,ID,rawResult.getText());
+
 
 //        String string = rawResult.getText();
 //        final Intent data = new Intent();
@@ -120,12 +127,13 @@ public class Camera_QRscan extends AppCompatActivity implements ZXingScannerView
         // mScannerView.resumeCameraPreview(this);
     }
 
-    private void dialog() {
+    private void dialog(Result rawResult) {
         progressDialog = new ProgressDialog(Camera_QRscan.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
+        new ConnectAPI().AdminScan(Camera_QRscan.this,ID,rawResult.getText(),admin_id);
     }
 
     public void Success() {
@@ -143,13 +151,14 @@ public class Camera_QRscan extends AppCompatActivity implements ZXingScannerView
 
     private void dialogErrorNoIntent(final Activity context, String string) {
         new AlertDialog.Builder(context)
-                .setTitle("The system temporarily")
-                .setMessage("ไม่สามารถใช้งานได้ กรุณาลองใหม่ภายหลัง error code = " + string)
+                .setTitle("ผิดพลาด")
+                .setMessage(string)
                 .setNegativeButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
                         finish();
+                        progressDialog.dismiss();
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }
                 })

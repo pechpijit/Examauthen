@@ -13,6 +13,7 @@ import com.droiddev.sdu.admin.QuizActivityAdmin;
 import com.droiddev.sdu.teacher.HomeActivity;
 import com.droiddev.sdu.teacher.NewsActivity;
 import com.droiddev.sdu.teacher.ProfileActivity;
+import com.droiddev.sdu.teacher.ProfileEmActivity;
 import com.droiddev.sdu.teacher.QuizActivity;
 import com.droiddev.sdu.teacher.ReportActivity;
 import com.google.gson.Gson;
@@ -64,10 +65,13 @@ public class ConnectAPI {
                 String[] temp = string.split(" ");
                 if (temp[0].equals("Error")||temp[0].equals("Not")) {
                     dialogErrorNoIntent(context, string);
+                    ((LoginTeacherActivity)context)._loginButton.setEnabled(true);
                 }  else if (string.equals("[]")) {
                     dialogNotfound(context);
+                    ((LoginTeacherActivity)context)._loginButton.setEnabled(true);
                 } else if (string.equals("NotFound")) {
                     dialogError(context, string);
+                    ((LoginTeacherActivity)context)._loginButton.setEnabled(true);
                 } else {
                     ((LoginTeacherActivity) context).onLoginSuccess(string,URL);
                 }
@@ -322,21 +326,21 @@ public class ConnectAPI {
         }.execute();
     }
 
-    public void AdminScan(final Activity context, final int id, final String code) {
-        Log.d("AdminScan : ", "input " + id+" "+code);
+    public void AdminScan(final Activity context, final int id, final String code, final int admin) {
+        Log.d("AdminScan : ", "input " + id+" "+code+" "+admin);
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... voids) {
                 OkHttpClient client = new OkHttpClient();
 
                 MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
-                RequestBody body = RequestBody.create(mediaType, "id="+id+"&code="+code);
+                RequestBody body = RequestBody.create(mediaType, "id="+id+"&code="+code+"&admin="+admin);
                 Request request = new Request.Builder()
-                        .url(URL+"/api/activity/scan")
+                        .url(URL+"/api/activity/sc")
                         .post(body)
                         .addHeader("content-type", "application/x-www-form-urlencoded")
                         .addHeader("cache-control", "no-cache")
-                        .addHeader("postman-token", "25d2a818-403c-1f4e-8717-67a9a24d58df")
+                        .addHeader("postman-token", "909c960f-473a-5fe3-3417-fbb88c9f0b01")
                         .build();
 
                 try {
@@ -359,11 +363,17 @@ public class ConnectAPI {
                 String[] temp = string.split(" ");
                 if (temp[0].equals("Error")||temp[0].equals("Not")) {
                     dialogErrorNoIntent(context, string);
+                    ((Camera_QRscan) context).progressDialog.dismiss();
                 }  else if (string.equals("[]")) {
                     dialogNotfound(context);
+                    ((Camera_QRscan) context).progressDialog.dismiss();
                 } else if (string.equals("NotFound")) {
-                    ((Camera_QRscan) context).Fail(string);
-                }else if (string.equals("success")){
+                    ((Camera_QRscan) context).Fail("ไม่สามารถรับข้อสอบได้ เนื่องจากรหัสผ่านกรรมการคุมสอบ ไม่ถูกต้อง");
+                    ((Camera_QRscan) context).progressDialog.dismiss();
+                } else if (string.equals("permission")) {
+                    ((Camera_QRscan) context).Fail("ไม่สามารถรับข้อสอบได้ เนื่องจากเจ้าหน้าที่ไม่มีสิทธิ์จัดการข้อสอบชุดนี้");
+                    ((Camera_QRscan) context).progressDialog.dismiss();
+                } else if (string.equals("success")){
                     ((Camera_QRscan) context).Success();
                 }
             }
@@ -476,6 +486,43 @@ public class ConnectAPI {
                     dialogNotfound(context);
                 } else {
                     ((ProfileActivity) context).setView(string);
+                }
+            }
+        }.execute();
+    }
+
+    public void ProfileEm(final Activity context, final int id) {
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... voids) {
+                OkHttpClient okHttpClient = new OkHttpClient();
+
+                Request.Builder builder = new Request.Builder();
+                Request request = builder.url(URL + "/api/employee/"+id).build();
+                try {
+                    Response response = okHttpClient.newCall(request).execute();
+                    if (response.isSuccessful()) {
+                        return response.body().string();
+                    } else {
+                        return "Not Success - code : " + response.code();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return "Error - " + e.getMessage();
+                }
+            }
+
+            @Override
+            protected void onPostExecute(String string) {
+                super.onPostExecute(string);
+                Log.i("NewsId : ", "NewsId " + string);
+                String[] temp = string.split(" ");
+                if (temp[0].equals("Error")||temp[0].equals("Not")) {
+                    dialogError(context, string);
+                } else if (string.equals("[]")) {
+                    dialogNotfound(context);
+                } else {
+                    ((ProfileEmActivity) context).setView(string);
                 }
             }
         }.execute();
@@ -772,8 +819,14 @@ public class ConnectAPI {
         new AlertDialog.Builder(context)
                 .setTitle("The system temporarily")
                 .setMessage("ไม่สามารถเข้าใช้งานได้ กรุณาลองใหม่ภายหลัง error code = " + string)
-                .setNegativeButton("OK", null)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        context.finish();
+                    }
+                })
                 .show();
+
     }
 
     private static void dialogNotfound(final Activity context) {
